@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false # when we build an image, dont try to push it to docker hunb
+  # googleCloudBuild:
+  #   projectId: tickets-dev-343112
+  artifacts:
+    # - image: us.gcr.io/tickets-dev-343112/auth
+    - image: crs1233/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts' # skaffold needs to watch these files
+            dest: . # where to sync this file to inside of our running container
+            # take this file where it was found (src) from and throw it to corresponding path inside our container
