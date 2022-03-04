@@ -1,9 +1,8 @@
-const express = require('express');
+import express, {Request, Response } from 'express';
 
 const router = express.Router();
 
-//@ts-ignore
-router.get('/api/users/currentuser', (req, res) => {
+router.get('/api/users/currentuser', (req: Request, res: Response) => {
     res.send('current user!');
 
 });

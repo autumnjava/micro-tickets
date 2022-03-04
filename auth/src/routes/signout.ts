@@ -1,9 +1,8 @@
-const express = require('express');
+import express, {Request, Response } from 'express';
 
 const router = express.Router();
 
-//@ts-ignore
-router.post('/api/users/signout', (req, res) => {
+router.post('/api/users/signout', (req: Request, res: Response) => {
     res.send('signed out!');
 
 });
