@@ -1,7 +1,7 @@
 import { CustomError } from "./custom-error";
 
 export class NotFoundError extends CustomError {
-    statusCode: number = 404;
+    statusCode = 404;
 
     constructor(){
         super('Route not found');
@@ -9,7 +9,7 @@ export class NotFoundError extends CustomError {
         Object.setPrototypeOf(this, NotFoundError.prototype);
     }
 
-    serializeErrors(): { message: string; field?: string | undefined; }[] {
+    serializeErrors() {
         return [{ message: 'Not Found '}]
     }
 
