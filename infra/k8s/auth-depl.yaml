@@ -16,6 +16,13 @@ spec:
         - name: auth # for logging purposes
           image: crs1233/auth
           # image: us.gcr.io/tickets-dev-343112/auth # for google cloud
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+
 
 ---
 apiVersion: v1
