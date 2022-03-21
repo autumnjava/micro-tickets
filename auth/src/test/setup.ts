@@ -5,8 +5,11 @@ import { app } from '../app';
 let mongo: any;
 
 beforeAll(async () => {
-    mongo = new MongoMemoryServer();
-    const mongoUri = await mongo.getUri();
+
+    process.env.JWT_KEY = 'asdasada'
+
+    mongo = await MongoMemoryServer.create();
+    const mongoUri = mongo.getUri();
 
     await mongoose.connect(mongoUri)
 });
