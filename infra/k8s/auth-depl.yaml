@@ -11,7 +11,7 @@ spec:
     metadata:
       labels:
         app: auth
-    spec:
+    spec:  # how every pod should behave
       containers:
         - name: auth # for logging purposes
           image: crs1233/auth
@@ -22,7 +22,6 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-
 
 ---
 apiVersion: v1

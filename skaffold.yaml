@@ -20,3 +20,11 @@ build:
           - src: 'src/**/*.ts' # skaffold needs to watch these files
             dest: . # where to sync this file to inside of our running container
             # take this file where it was found (src) from and throw it to corresponding path inside our container
+    - image: crs1233/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js' 
+            dest: .

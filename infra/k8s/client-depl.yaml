@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec: # how every pod should behave
+      containers:
+        - name: client # for logging purposes
+          image: crs1233/client
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec: 
+  #type: ClusterIP this is a default service type
+  selector:
+    app: client # how the service is gonna find pods
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
