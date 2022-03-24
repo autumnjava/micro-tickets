@@ -17,7 +17,7 @@ app.set('trust-proxy', true);
 app.use(
     cookieSession({
         signed: false,  // disable encription on the cookie
-        secure: false    // only if HTTPS connection
+        secure: process.env.NODE_ENV !== 'test' // jest is not using HTTPS to send requests
     })
 );
 
