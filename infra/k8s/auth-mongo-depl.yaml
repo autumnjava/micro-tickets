@@ -27,5 +27,5 @@ spec:
   ports:
     - name: db
       protocol: TCP
-      port: 27017
+      port: 27017 #default port for mongo
       targetPort: 27017
