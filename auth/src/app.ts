@@ -1,6 +1,6 @@
 import express from 'express';
 
-import cookieSession from 'cookie-session';
+import cookieParser from "cookie-parser";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
@@ -12,13 +12,14 @@ import { NotFoundError } from './errors/not-found-error';
 const app = express();
 
 app.use(express.json());
-app.set('trust-proxy', true);
-app.use(
-    cookieSession({
-        signed: false,  // disable encription on the cookie
-        secure: process.env.NODE_ENV !== 'test' // jest is not using HTTPS to send requests
-    })
-);
+app.use(cookieParser());
+app.set('trust proxy', (ip: string) => {
+    if (ip === '127.0.0.1' ) {
+        console.log('we get here?');
+        return true // trusted IPs
+    }
+    else return false
+  })
 
 app.use(currentUserRouter);
 app.use(signinRouter);
