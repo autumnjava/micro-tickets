@@ -11,8 +11,8 @@ export default () => {
         body: {
             email, password
         },
-        // onSuccess: () => Router.push('/'),
-        onSuccess: () => console.log('success yo'),
+        onSuccess: () => Router.push('/'),
+        // onSuccess: () => console.log('success yo'),
     })
 
     const onSubmit = async (e) => {
