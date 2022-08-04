@@ -1,6 +1,6 @@
 import express from 'express';
 
-import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser"; // in the tutorial is using cookie-session which does not seem to work correctly.
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
