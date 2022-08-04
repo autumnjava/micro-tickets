@@ -38,13 +38,10 @@ async (req: Request, res: Response) => {
     process.env.JWT_KEY!
     );
 
-    // store it on session object
-    // req.session.jwt = userJwt; // because of typescript have to do as below:
-    req.session = {
-        jwt: userJwt
-    };
-
-    res.status(201).send(user);
+    res.cookie("access_token", userJwt, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      }).status(201).send(user);
     
 });
 
