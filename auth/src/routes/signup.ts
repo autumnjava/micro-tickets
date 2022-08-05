@@ -1,48 +1,50 @@
-import express, {Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest, BadRequestError } from '@gunit/common';
 import { User } from '../models/user';
-import { BadRequestError } from '../errors/bad-request-error';
-
 const router = express.Router();
 
-router.post('/api/users/signup', [
-    body('email')
-    .isEmail()
-    .withMessage('Email must be valid!'),
+router.post(
+  '/api/users/signup',
+  [
+    body('email').isEmail().withMessage('Email must be valid!'),
     body('password')
-    .trim().isLength({min:4, max:20})
-    .withMessage('Password must be valid!')
-],
-validateRequest,
-async (req: Request, res: Response) => {
-
+      .trim()
+      .isLength({ min: 4, max: 20 })
+      .withMessage('Password must be valid!'),
+  ],
+  validateRequest,
+  async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    const existingUser = await User.findOne({email});
+    const existingUser = await User.findOne({ email });
 
-    if(existingUser) {
-        throw new BadRequestError('Email in use');
+    if (existingUser) {
+      throw new BadRequestError('Email in use');
     }
 
-    const user = User.build({email, password});
+    const user = User.build({ email, password });
     await user.save();
 
     // generate JWT
-    const userJwt = jwt.sign({
+    const userJwt = jwt.sign(
+      {
         id: user.id,
-        email: user.email
-    },
-    process.env.JWT_KEY!
+        email: user.email,
+      },
+      process.env.JWT_KEY!
     );
 
-    res.cookie("access_token", userJwt, {
+    res
+      .cookie('access_token', userJwt, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      }).status(201).send(user);
-    
-});
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .status(201)
+      .send(user);
+  }
+);
 
-export {router as signupRouter };
+export { router as signupRouter };
