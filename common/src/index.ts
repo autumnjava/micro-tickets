@@ -1,13 +1,13 @@
 interface Color {
-    red: number;
-    blue: number;
-    green: number;
+    red: number,
+    blue: number,
 }
 
 const color: Color = {
-    red: 10,
-    blue: 10,
-    green: 10
+    red: 11,
+    blue: 55,
 }
 
-console.log(color, 'what is here');
+console.log(color, 'what is color');
+
+export default color;
