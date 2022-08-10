@@ -1,36 +1,37 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 interface UserPayload {
-    id: string;
-    email: string;
+  id: string;
+  email: string;
 }
 
 declare global {
-    namespace Express {
-        interface Request {
-            currentUser?: UserPayload;
-        }
+  namespace Express {
+    interface Request {
+      currentUser?: UserPayload;
     }
+  }
 }
 
-export const currentUser = (req: Request, res: Response, next: NextFunction) => {
-    const token = req.cookies.access_token;
-    if (!token) {
-      return next();
-    }
+export const currentUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.cookies.access_token;
+  if (!token) {
+    return next();
+  }
 
-    try {
-        const payload = jwt.verify(
-            req.cookies.access_token,
-            process.env.JWT_KEY!
-            ) as UserPayload;
+  try {
+    const payload = jwt.verify(
+      req.cookies.access_token,
+      process.env.JWT_KEY!
+    ) as UserPayload;
 
-            req.currentUser = payload;
+    req.currentUser = payload;
+  } catch (err) {}
 
-    } catch (err) {}
-
-
-
-    next(); // whether or not we decoded our token successfully, we still want to continue to next request
-}
+  next(); // whether or not we decoded our token successfully, we still want to continue to next request
+};
