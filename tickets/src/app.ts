@@ -1,5 +1,6 @@
 import express from 'express';
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
 import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-session which does not seem to work correctly.
 
 import { errorHandler, NotFoundError, currentUser } from '@gunit/common';
@@ -17,6 +18,7 @@ app.set('trust proxy', (ip: string) => {
 app.use(currentUser);
 
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
