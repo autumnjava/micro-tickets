@@ -5,7 +5,7 @@ import { errorHandler, NotFoundError, currentUser } from '@gunit/common';
 // routes
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
-import { showTicketsRouter } from './routes/list';
+import { listTicketsRouter } from './routes/list';
 
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
-app.use(showTicketsRouter);
+app.use(listTicketsRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
