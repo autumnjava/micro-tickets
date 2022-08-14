@@ -1,9 +1,12 @@
 import express from 'express';
+import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-session which does not seem to work correctly.
+import { errorHandler, NotFoundError, currentUser } from '@gunit/common';
+
+// routes
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
-import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-session which does not seem to work correctly.
+import { showTicketsRouter } from './routes/list';
 
-import { errorHandler, NotFoundError, currentUser } from '@gunit/common';
 
 const app = express();
 
@@ -19,6 +22,7 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(showTicketsRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
