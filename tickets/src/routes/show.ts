@@ -16,7 +16,7 @@ router.get('/api/tickets/:id', async (req: Request, res: Response) => {
     return;
   }
 
-  res.send(ticket);
+  res.status(200).send(ticket);
 });
 
 export { router as showTicketRouter };
