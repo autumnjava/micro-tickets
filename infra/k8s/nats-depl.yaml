@@ -31,7 +31,7 @@ spec:
               '2',
               '-SD',
               '-cid',
-              'tickets',
+              'ticketing',
           ]
 ---
 apiVersion: v1
