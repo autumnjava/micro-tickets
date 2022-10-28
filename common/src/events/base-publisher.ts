@@ -15,15 +15,13 @@ export abstract class Publisher<T extends Event> {
   }
 
   publish(data: T['data']) {
-    //@ts-ignore
-    return new Promise((resolve, reject): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
       this.client.publish(this.subject, JSON.stringify(data), (err) => {
         if (err) {
           return reject(err);
         }
         console.log('error published to subject', this.subject);
         
-        //@ts-ignore
         resolve();
       });
     });
