@@ -14,3 +14,9 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=verysecretpinksocks
 ```
+
+### to update common library and get the latest version
+```
+cd common && npm run pub
+cd tickets && npm update @gunit/common --save
+```
