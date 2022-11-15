@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
+import { natsWrapper } from '../../nats-wrapper'; // this will import the fake nats wrapper because of jest.mock()
 
 const title = 'valid title';
 const price = 20;
@@ -97,3 +98,25 @@ it('updates the ticket provided valid inputs', async () => {
   expect(ticketResponse.body.title).toEqual('updated');
   expect(ticketResponse.body.price).toEqual(200);
 });
+
+it('publishes an event', async () => {
+  const cookie = global.signin();
+  const response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title,
+      price,
+    });
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set('Cookie', cookie)
+    .send({
+      title: 'updated',
+      price: 200,
+    })
+    .expect(200);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+})
