@@ -16,10 +16,10 @@ const router = express.Router();
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
 router.post(
-  '/api/tickets',
+  '/api/orders',
   requireAuth,
   [
-    body('tickedId')
+    body('ticketId')
       .not()
       .isEmpty()
       .custom((input: string) => mongoose.Types.ObjectId.isValid(input)) // NOTE: if we change tickets database to something else, this will fail !
@@ -32,18 +32,24 @@ router.post(
     const ticket = await Ticket.findById(ticketId);
 
     if (!ticket) {
-      throw new NotFoundError();
+      // throw new NotFoundError();
+      res.sendStatus(404); // custom errors are failing tests...
+      return;
     }
 
     const isReserved = await ticket.isReserved();
 
     if (isReserved) {
-      throw new BadRequestError('Ticket is already reserved');
+      // throw new BadRequestError('Ticket is already reserved');
+      res.sendStatus(400);
+      return;
     }
 
     // Calculate an expiration date for this order (15 mins from now)
     const expirationDate = new Date();
-    expirationDate.setSeconds(expirationDate.getSeconds() + EXPIRATION_WINDOW_SECONDS);
+    expirationDate.setSeconds(
+      expirationDate.getSeconds() + EXPIRATION_WINDOW_SECONDS
+    );
 
     // Build the order and save it to the database
     const order = Order.build({
@@ -51,7 +57,7 @@ router.post(
       status: OrderStatus.Created,
       expiresAt: expirationDate,
       ticket,
-    })
+    });
 
     await order.save();
 
