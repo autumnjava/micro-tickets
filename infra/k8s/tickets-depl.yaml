@@ -28,7 +28,7 @@ spec:
               value: 'ticketing'
             - name: NATS_CLIENT_ID
               valueFrom:
-                filedRef:
+                fieldRef:
                   fieldPath: metadata.name # will return pods name 
             - name: NATS_URL
               value: 'http://nats-srv:4222'
