@@ -17,9 +17,9 @@ app.set('trust proxy', (ip: string) => {
 });
 app.use(currentUser);
 
+app.use(createOrderRouter);
 app.use(listOrdersRouter);
 app.use(deleteOrderRouter);
-app.use(createOrderRouter);
 app.use(showOrderRouter);
 
 
