@@ -25,5 +25,5 @@ class NatsWrapper {
     });
   }
 }
-
+// this method is called singleton! 
 export const natsWrapper = new NatsWrapper();
