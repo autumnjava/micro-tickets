@@ -25,7 +25,7 @@ router.put(
   async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.id);
 
-    // follow up code is failing my tests:
+    // the following code is failing my tests:
     // if(!ticket) {
     //   throw new NotFoundError();
     // }

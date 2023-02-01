@@ -12,7 +12,10 @@ it('returns a 404 if the provided id does not exist', async () => {
   await request(app)
     .put(`/api/tickets/${id}`)
     .set('Cookie', global.signin())
-    .send({ title: 'abc', price: 20 })
+    .send({
+      title: 'aslkdfj',
+      price: 20,
+    })
     .expect(404);
 });
 
