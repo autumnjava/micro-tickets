@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
 import { app } from './app';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 import { natsWrapper } from './nats-wrapper';
 
@@ -31,6 +33,9 @@ const start = async () => {
       process.env.NATS_CLIENT_ID,
       process.env.NATS_URL
     );
+
+    new OrderCancelledListener(natsWrapper.client).listen();
+    new OrderCreatedListener(natsWrapper.client).listen();
 
     // nats graceful shutdown
     natsWrapper.client.on('close', () => {
