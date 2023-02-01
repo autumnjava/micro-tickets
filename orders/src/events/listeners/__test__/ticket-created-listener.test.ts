@@ -19,17 +19,17 @@ const setup = async () => {
   };
   // create a fake message object
   // @ts-ignore
-  const message: Message = {
+  const msg: Message = {
     ack: jest.fn(),
   };
 
-  return { listener, data, message };
+  return { listener, data, msg };
 };
 
 it('creates and saves a ticket', async () => {
-  const { listener, data, message } = await setup();
+  const { listener, data, msg } = await setup();
   // call the onMessage function with the data object + message object
-  await listener.onMessage(data, message);
+  await listener.onMessage(data, msg);
 
   // write assertions to make sure a ticket was created
   const ticket = await Ticket.findById(data.id);
@@ -39,11 +39,11 @@ it('creates and saves a ticket', async () => {
 });
 
 it('acks the message', async () => {
-  const { listener, data, message } = await setup();
+  const { listener, data, msg } = await setup();
 
   // call the onMessage function with the data object + message object
-  await listener.onMessage(data, message);
+  await listener.onMessage(data, msg);
 
   // write assertions to make sure ack function was called
-  expect(message.ack).toHaveBeenCalled();
+  expect(msg.ack).toHaveBeenCalled();
 });
