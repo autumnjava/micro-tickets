@@ -48,6 +48,13 @@ const ticketSchema = new mongoose.Schema(
 
 ticketSchema.set('versionKey', 'version');
 ticketSchema.plugin(updateIfCurrentPlugin);
+// this is basically same as above plugin
+// ticketSchema.pre('save', function(done){
+//   this.$where = {
+//     version: this.get('version') - 1
+//   };
+//   done();
+// })
 
 ticketSchema.statics.findByEvent = (event: { id: string; version: number }) => {
   return Ticket.findOne({
@@ -70,7 +77,7 @@ ticketSchema.methods.isReserved = async function () {
   // we just found AND the orders status is NOT cancelled
   // If we find an order from that means the ticket IS reserved
   const existingOrder = await Order.findOne({
-    ticket: this,
+    ticket: this as any,
     status: {
       $in: [
         OrderStatus.Created,
