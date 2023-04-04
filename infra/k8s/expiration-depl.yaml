@@ -26,4 +26,4 @@ spec:
             - name: NATS_URL
               value: 'http://nats-srv:4222'
             - name: REDIS_HOST
-              value: 'http://expiration-redis-srv'
+              value: expiration-redis-srv
