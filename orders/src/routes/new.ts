@@ -23,7 +23,7 @@ router.post(
       .not()
       .isEmpty()
       .custom((input: string) => mongoose.Types.ObjectId.isValid(input)) // NOTE: if we change tickets database to something else, this will fail !
-      .withMessage('TicketId must be provided'),
+      .withMessage('ticketId must be provided'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
