@@ -2,6 +2,7 @@ import { OrderStatus, requireAuth, validateRequest } from '@gunit/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { Order } from '../models/order';
+import { stripe } from '../stripe';
 
 const router = express.Router();
 
@@ -27,12 +28,18 @@ router.post(
     }
 
     if (order.status === OrderStatus.Cancelled) {
-    //   throw new Error('Order is cancelled');
+      //   throw new Error('Order is cancelled');
       res.sendStatus(400);
-      return
+      return;
     }
 
-    res.send({ success: true });
+    await stripe.charges.create({
+      currency: 'usd',
+      amount: order.price * 100,
+      source: token,
+    });
+
+    res.status(201).send({ success: true });
   }
 );
 
