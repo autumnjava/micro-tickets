@@ -26,7 +26,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js' 
+          - src: '**/*.ts' 
             dest: .
     - image: crs1233/tickets
       context: tickets
@@ -34,7 +34,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js' 
+          - src: '**/*.ts' 
             dest: .
     - image: crs1233/orders
       context: orders
@@ -42,7 +42,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js' 
+          - src: '**/*.ts' 
             dest: .
     - image: crs1233/expiration
       context: expiration
@@ -50,7 +50,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js' 
+          - src: '**/*.ts' 
             dest: .
     - image: crs1233/payments
       context: payments
@@ -58,5 +58,5 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js' 
+          - src: '**/*.ts' 
             dest: .

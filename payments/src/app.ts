@@ -1,9 +1,9 @@
-import express from 'express';
+import { NotFoundError, currentUser, errorHandler } from '@gunit/common';
 import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-session which does not seem to work correctly.
-import { errorHandler, NotFoundError, currentUser } from '@gunit/common';
+import express from 'express';
+import { createChargeRouter } from './routes/new';
 
 // routes
-
 
 const app = express();
 
@@ -16,6 +16,8 @@ app.set('trust proxy', (ip: string) => {
   } else return false;
 });
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
