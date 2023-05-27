@@ -1,9 +1,10 @@
 import { NotFoundError, currentUser, errorHandler } from '@gunit/common';
 import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-session which does not seem to work correctly.
+import * as dotenv from 'dotenv';
 import express from 'express';
 import { createChargeRouter } from './routes/new';
 
-// routes
+dotenv.config();
 
 const app = express();
 

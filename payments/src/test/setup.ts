@@ -1,6 +1,9 @@
+import * as dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 declare global {
   var signin: (userId?: string) => string[];

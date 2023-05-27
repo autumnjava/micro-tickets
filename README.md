@@ -19,6 +19,11 @@ kubectl create secret generic jwt-secret --from-literal=JWT_KEY=verysecretpinkso
 kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_******
 ```
 
+### for tests:
+```
+inside payments map create .env file with STRIPE_KEY=sk_test_******
+```
+
 ### to update common library and get the latest version
 ```
 cd common && npm run pub
