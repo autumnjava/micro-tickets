@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-ses
 import * as dotenv from 'dotenv';
 import express from 'express';
 import { createChargeRouter } from './routes/new';
+import { createStatusRouter } from './routes/status';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.set('trust proxy', (ip: string) => {
 app.use(currentUser);
 
 app.use(createChargeRouter);
+app.use(createStatusRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();

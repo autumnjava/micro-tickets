@@ -3,6 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser'; // in the tutorial is using cookie-session which does not seem to work correctly.
 
 import { currentUserRouter } from './routes/current-user';
+import { listUsersRouter } from './routes/list';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
@@ -20,6 +21,7 @@ app.set('trust proxy', (ip: string) => {
 });
 
 app.use(currentUserRouter);
+app.use(listUsersRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
